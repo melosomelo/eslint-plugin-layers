@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-layers",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A set of ESLint rules that enforce a layered software architecture",
   "keywords": [
     "eslint",
