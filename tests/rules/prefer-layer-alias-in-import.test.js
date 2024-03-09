@@ -32,8 +32,8 @@ describe("prefer-layer-alias-in-import", () => {
         "import bar from 'some-random-library'",
         `--rule 'prefer-layer-alias-in-import: ['error']'`,
         `--parser-options sourceType:module`,
-        `--env es6`
-      )
+        `--env es6`,
+      ),
     ).resolves.not.toThrow();
   });
   test("should not throw if import is not from a layer", async () => {
@@ -43,8 +43,8 @@ describe("prefer-layer-alias-in-import", () => {
         "import bar from '../not-a-layer'",
         `--rule 'prefer-layer-alias-in-import: ${JSON.stringify(ruleConfig)}'`,
         `--parser-options sourceType:module`,
-        `--env es6`
-      )
+        `--env es6`,
+      ),
     ).resolves.not.toThrow();
   });
   test("should throw if import is from a layer and is not using alias", async () => {
@@ -54,8 +54,8 @@ describe("prefer-layer-alias-in-import", () => {
         "import bar from '../shared'",
         `--rule 'prefer-layer-alias-in-import: ${JSON.stringify(ruleConfig)}'`,
         `--parser-options sourceType:module`,
-        `--env es6`
-      )
+        `--env es6`,
+      ),
     ).rejects.toThrow();
   });
 });
