@@ -1,6 +1,6 @@
 # eslint-plugin-layers
 
-A set of ESLint rules that enforce a layered software architecture
+A set of ESLint rules that enforce a layered software architecture style.
 
 ## Installation
 
@@ -22,37 +22,52 @@ Add `layers` to the plugins section of your `.eslintrc` configuration file. You 
 
 ```json
 {
-    "plugins": [
-        "layers"
-    ]
+  "plugins": ["layers"]
 }
 ```
-
 
 Then configure the rules you want to use under the rules section.
 
 ```json
 {
-    "rules": {
-        "layers/rule-name": 2
-    }
+  "rules": {
+    "layers/rule-name": 2
+  }
 }
 ```
 
-
-
-## Configurations
-
-<!-- begin auto-generated configs list -->
-TODO: Run eslint-doc-generator to generate the configs list (or delete this section if no configs are offered).
-<!-- end auto-generated configs list -->
-
-
-
 ## Rules
 
-<!-- begin auto-generated rules list -->
-TODO: Run eslint-doc-generator to generate the rules list.
-<!-- end auto-generated rules list -->
+This plugin ships with two main rules, both of which regard the handling of imports and the defined layers.
 
+### `no-import-from-upper-layer`
 
+This rule enforces that imports between layers must be done in a downwards or lateral fashion (layers must import
+from either itself or from lower layers). Any upwards import probably signal that either your current or the imported piece
+of code should be placed in another layer.
+
+The configuration for this rule is a sequence of objects that represent the layers in your code. **The order in which
+you specify the layers matters.** The position of the object in your sequence represents the position of the layer in your
+architecture in an ascending fashion, i.e., the first object in the sequence represents the bottommost layer, and the last represents the
+topmost one. Each object will have a `name` and a `path` field. The `path` must be relative to your `.eslintrc` file.
+
+Here's an example configuration.
+
+```json
+  //...
+  "rules": {
+    "layers/no-import-from-upper-layer": [
+      2,
+      // shared is the bottommost layer and can import only from itself
+      { "name": "shared", "path": "src/shared" },
+      { "name": "repository", "path": "src/repository" },
+      // app is the topmost layer and can import from anyone
+      { "name": "app", "path": "src/app" }
+    ]
+  }
+  //...
+```
+
+### `prefer-layer-alias-in-import`
+
+This rule enforces that any reference to a layer in any import must be done so via its pre-defined alias.
