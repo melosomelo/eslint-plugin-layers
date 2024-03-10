@@ -78,7 +78,7 @@ In a lot of large and deep code bases, it's very common to define aliases for ce
 ugly relative paths (via the [`paths`](https://www.typescriptlang.org/tsconfig#paths)
 property in a `tsconfig` file, for example). With this, a file such as
 `src/app/access-control/user/user.controller.ts` can import something from `src/shared/access-control/auth.guard.ts`
-by writing `import { something } from "~shared/access-control/auth.guard.ts"` instead of `import { something } from ""../../shared/access-control/auth.guard.ts"` (with `~shared` being the layer's alias).
+by writing `import { something } from "~shared/access-control/auth.guard.ts"` instead of `import { something } from "../../shared/access-control/auth.guard.ts"` (with `~shared` being the layer's alias).
 
 We can take this pattern even further by creating an `src/shared/index.ts`
 file and exporting from it only the items that matter to the upper layers.
