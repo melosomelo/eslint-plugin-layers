@@ -53,7 +53,7 @@ topmost one. Each object will have a `name` and a `path` field. The `path` must 
 
 Here's an example configuration.
 
-```json
+```jsonc
   //...
   "rules": {
     "layers/no-import-from-upper-layer": [
@@ -70,4 +70,9 @@ Here's an example configuration.
 
 ### `prefer-layer-alias-in-import`
 
-This rule enforces that any reference to a layer in any import must be done so via its pre-defined alias.
+This rule enforces that any reference to a layer in any import must be done so via is config-defined alias.
+
+For example, consider a code base with the layers `shared -> repository -> app`, with `shared` being the bottommost layer,
+each of which are directly located under the `src/` directory.
+In a lot of large and deep code bases, it's very common to define aliases for certain folders in order to avoid
+ugly relative paths. Therefore, a file such as
